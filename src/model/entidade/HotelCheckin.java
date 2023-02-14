@@ -51,11 +51,11 @@ public class HotelCheckin {
 	public String toString() {
 		return "Reserva: quarto "
 				+ numeroDoQuarto
-				+ ", checkin: "
+				+ ", check-in: "
 				+ sdf.format(checkIn)
-				+ ", checkout: "
+				+ ", check-out: "
 				+ sdf.format(checkOut)
-				+ ", duracao: "
+				+ ", duração: "
 				+ duracao()
 				+ " noites.";
 	}
