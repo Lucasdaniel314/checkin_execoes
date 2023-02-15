@@ -3,9 +3,11 @@ package aplicacao;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import model.entidade.HotelCheckin;
+import model.exceptions.DomainException;
 
 public class Programa {
 
@@ -34,9 +36,11 @@ public class Programa {
 			System.out.println();
 			reserva.atualizarDatas(checkIn, checkOut);
 			System.out.println("(atualizado) " + reserva);
+		} catch(InputMismatchException e) {
+			System.out.println("erro: letra no numero de quarto");
 		} catch (ParseException e) {
 			System.out.println("erro: formato de data inválido!");
-		} catch (IllegalArgumentException e) {
+		} catch (DomainException e) {
 			System.out.println(e.getMessage());
 		}
 		

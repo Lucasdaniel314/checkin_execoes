@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import model.exceptions.DomainException;
+
 public class HotelCheckin {
 
 	private Integer numeroDoQuarto;
@@ -15,7 +17,10 @@ public class HotelCheckin {
 	public HotelCheckin() {
 	}
 
-	public HotelCheckin(Integer numeroDoQuarto, Date checkin, Date checkout) {
+	public HotelCheckin(Integer numeroDoQuarto, Date checkin, Date checkout) throws DomainException {
+		if(!checkout.after(checkin)) {
+			throw new DomainException("erro: check-out antes do ckeck-in");
+		}
 		this.numeroDoQuarto = numeroDoQuarto;
 		this.checkIn = checkin;
 		this.checkOut = checkout;
@@ -42,12 +47,12 @@ public class HotelCheckin {
 		return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 	}
 	
-	public void atualizarDatas(Date checkIn, Date checkOut) {
+	public void atualizarDatas(Date checkIn, Date checkOut) throws DomainException {
 		Date agora = new Date();
 		if(checkIn.before(agora) || checkOut.before(agora)) {
-			throw new IllegalArgumentException("erro: para atualizar data, deve atualizar para datas futuras!");
+			throw new DomainException("erro: para atualizar data, deve atualizar para datas futuras!");
 		} if(!checkOut.after(checkIn)) {
-			throw new IllegalArgumentException("erro: check-out antes do ckeck-in");
+			throw new DomainException("erro: check-out antes do ckeck-in");
 		}
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
