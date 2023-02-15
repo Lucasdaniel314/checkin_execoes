@@ -42,9 +42,16 @@ public class HotelCheckin {
 		return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 	}
 	
-	public void atualizarDatas(Date checkIn, Date checkOut) {
+	public String atualizarDatas(Date checkIn, Date checkOut) {
+		Date agora = new Date();
+		if(checkIn.before(agora) || checkOut.before(agora)) {
+			return "erro: para atualizar data, deve atualizar para datas futuras!";
+		} if(!checkOut.after(checkIn)) {
+			return "erro: check-out antes do ckeck-in";
+		}
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
+		return null;
 	}
 	
 	@Override
